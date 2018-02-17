@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "281239262955",
+    "project_id": "hepro-tech"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281239262955:android:87b839f40e226ce7",
+        "android_client_info": {
+          "package_name": "ca.prieto.hepro_tech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281239262955-0oj2tc84jv5ir6qefsenhg30u5pebs4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJNcbRxOMEZSMgH9by0YqbG03XviU-5GE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

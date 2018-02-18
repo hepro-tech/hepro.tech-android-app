@@ -42,28 +42,23 @@ public class MainActivity extends AppCompatActivity {
                     service.armHeprotechDevice().enqueue(new Callback<HeprotechDevice>() {
                         @Override
                         public void onResponse(Call<HeprotechDevice> call, Response<HeprotechDevice> response) {
-                            Toast toast = Toast.makeText(MainActivity.this, "device armed", Toast.LENGTH_SHORT);
-                            toast.show();
                         }
 
                         @Override
                         public void onFailure(Call<HeprotechDevice> call, Throwable t) {
-                            Toast toast = Toast.makeText(MainActivity.this, "failed to arm device", Toast.LENGTH_SHORT);
-                            toast.show();
+
                         }
                     });
                 } else {
                     service.disarmHeprotechDevice().enqueue(new Callback<HeprotechDevice>() {
                         @Override
                         public void onResponse(Call<HeprotechDevice> call, Response<HeprotechDevice> response) {
-                            Toast toast = Toast.makeText(MainActivity.this, "device disarmed", Toast.LENGTH_SHORT);
-                            toast.show();
+
                         }
 
                         @Override
                         public void onFailure(Call<HeprotechDevice> call, Throwable t) {
-                            Toast toast = Toast.makeText(MainActivity.this, "failed to disarm device", Toast.LENGTH_SHORT);
-                            toast.show();
+
                         }
                     });
                 }

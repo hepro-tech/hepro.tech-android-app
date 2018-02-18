@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.onesignal.OneSignal;
@@ -22,17 +23,51 @@ public class MainActivity extends AppCompatActivity {
 
     Switch enableSwitch;
     HeprotechApi service;
+    TextView deviceTitle;
+    TextView lastUpdated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        deviceTitle = findViewById(R.id.deviceTitle);
+        lastUpdated = findViewById(R.id.lastUpdated);
+
         enableSwitch = findViewById(R.id.enableSwitch);
         enableSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                
+                if (b) {
+                    service.armHeprotechDevice().enqueue(new Callback<HeprotechDevice>() {
+                        @Override
+                        public void onResponse(Call<HeprotechDevice> call, Response<HeprotechDevice> response) {
+                            Toast toast = Toast.makeText(MainActivity.this, "device armed", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<HeprotechDevice> call, Throwable t) {
+                            Toast toast = Toast.makeText(MainActivity.this, "failed to arm device", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                } else {
+                    service.disarmHeprotechDevice().enqueue(new Callback<HeprotechDevice>() {
+                        @Override
+                        public void onResponse(Call<HeprotechDevice> call, Response<HeprotechDevice> response) {
+                            Toast toast = Toast.makeText(MainActivity.this, "device disarmed", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<HeprotechDevice> call, Throwable t) {
+                            Toast toast = Toast.makeText(MainActivity.this, "failed to disarm device", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                }
+
             }
         });
 
@@ -51,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<HeprotechDevice> call, Response<HeprotechDevice> response) {
                 device[0] = response.body();
+
+                deviceTitle.setText(device[0].getName());
+                lastUpdated.setText(device[0].getLatestEventTimestamp().toString());
 
                 if (device[0].isArmed()) {
                     enableSwitch.setChecked(true);
